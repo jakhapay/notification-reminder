@@ -1,11 +1,8 @@
-````markdown
 # 🚀 Notification Reminder
 
 A lightweight, customizable **notification scheduling library** for Android using **WorkManager** and **Jetpack Compose** compatibility.
 
 Easily schedule **one-time** or **repeating notifications**, support for **custom payloads**, **image URLs**, **channels**, and **click actions** — all with a clean **Builder pattern**.
-
----
 
 ## 📦 Features
 
@@ -18,16 +15,13 @@ Easily schedule **one-time** or **repeating notifications**, support for **custo
 - 🔧 Built using `WorkManager` (reliable, OS-friendly)
 - 💬 Click opens your app’s default launcher activity
 
----
-
 ## 🛠️ Installation
 
 1. Add dependency to your `build.gradle`: (WIP, not implemented yet)
 
 ```kotlin
 implementation("uz.jakhasoft:push-reminder:1.0.0")
-````
-
+```
 > Or if local module:
 
 ```kotlin
@@ -36,7 +30,6 @@ implementation(project(":push-reminder"))
 
 2. Minimum SDK: **23+**
 
----
 
 ## 🚀 Usage
 
@@ -72,22 +65,18 @@ ReminderBuilder()
 ReminderScheduler.schedule(context, builder)
 ```
 
----
-
 ## ❌ Cancel a Notification
 
 ```kotlin
 ReminderScheduler.cancel(context, "daily_reminder")
 ```
 
----
-
 ## 📤 Custom Data Handling
 
 You can provide any number of key-value data using:
 
 ```kotlin
-.setCustomData("key", "value")
+setCustomData("key", "value")
 ```
 
 All data will be included in the `Intent` when the notification is clicked.
@@ -109,16 +98,12 @@ intent.getStringExtra("campaign_id") // Access your custom data
 * `setLargeIconUrl()` and `setBigImageUrl()` download images using **Coil** internally.
 * You can also extend this with Glide/Picasso easily.
 
----
-
 ## 🧱 Built With
 
 * Kotlin
 * AndroidX WorkManager
 * Jetpack Compose friendly
 * Coil (for image loading)
-
----
 
 ## 💡 License
 
@@ -127,14 +112,10 @@ MIT License
 Copyright (c) 2025 Jakhongir Mannonov
 ```
 
----
-
 ## 🤝 Contributions
 
 PRs and suggestions are welcome!
 Create an issue or fork the repo to contribute.
-
----
 
 ## 📬 Contact
 
