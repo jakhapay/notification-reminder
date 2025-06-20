@@ -1,5 +1,5 @@
 ````markdown
-# 🚀 Push Reminder
+# 🚀 Notification Reminder
 
 A lightweight, customizable **notification scheduling library** for Android using **WorkManager** and **Jetpack Compose** compatibility.
 
@@ -22,7 +22,7 @@ Easily schedule **one-time** or **repeating notifications**, support for **custo
 
 ## 🛠️ Installation
 
-1. Add dependency to your `build.gradle`:
+1. Add dependency to your `build.gradle`: (WIP, not implemented yet)
 
 ```kotlin
 implementation("uz.jakhasoft:push-reminder:1.0.0")
