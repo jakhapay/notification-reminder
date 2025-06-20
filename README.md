@@ -1,6 +1,6 @@
 # 🚀 Notification Reminder
 
-A lightweight, customizable **notification scheduling library** for Android using **WorkManager** and **Jetpack Compose** compatibility.
+A lightweight, customizable **notification scheduling library** for Android using **WorkManager**.
 
 Easily schedule **one-time** or **repeating notifications**, support for **custom payloads**, **image URLs**, **channels**, and **click actions** — all with a clean **Builder pattern**.
 
@@ -102,7 +102,6 @@ intent.getStringExtra("campaign_id") // Access your custom data
 
 * Kotlin
 * AndroidX WorkManager
-* Jetpack Compose friendly
 * Coil (for image loading)
 
 ## 💡 License
