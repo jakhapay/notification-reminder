@@ -118,4 +118,4 @@ Create an issue or fork the repo to contribute.
 
 ## 📬 Contact
 
-Created by [Jakhongir Mannonov](https://github.com/Jakhadev) — feel free to reach out for improvements or questions.
+Created by [Jakhongir Mannonov](https://github.com/mannonov) — feel free to reach out for improvements or questions.
