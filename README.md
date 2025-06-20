@@ -43,7 +43,7 @@ implementation(project(":push-reminder"))
 ### 🔧 Schedule a one-time notification:
 
 ```kotlin
-ReminderBuilder(context)
+ReminderBuilder()
     .setId("promo_offer") // required
     .setTitle("🎉 Special Offer!")
     .setMessage("Tap to unlock your gift 🎁")
@@ -60,7 +60,7 @@ ReminderScheduler.schedule(context, builder)
 ### 🔁 Schedule a repeating notification:
 
 ```kotlin
-ReminderBuilder(context)
+ReminderBuilder()
     .setId("daily_reminder")
     .setTitle("Daily Tip")
     .setMessage("Come back for more!")
