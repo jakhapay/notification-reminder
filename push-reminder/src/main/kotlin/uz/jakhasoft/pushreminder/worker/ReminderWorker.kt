@@ -16,7 +16,7 @@ import uz.jakhasoft.pushreminder.helper.NotificationHelper
 
 class ReminderWorker(
     private val context: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -56,7 +56,7 @@ class ReminderWorker(
             category = category,
             timestamp = timestamp,
             soundUri = soundUri,
-            getDefaultLaunchIntent(customKeys)
+            getDefaultLaunchIntent(customKeys),
         )
 
         return Result.success()
@@ -66,7 +66,7 @@ class ReminderWorker(
         if (url.isNullOrBlank()) return null
         return try {
             val result = Coil.imageLoader(context).execute(
-                ImageRequest.Builder(context).data(url).allowHardware(false).build()
+                ImageRequest.Builder(context).data(url).allowHardware(false).build(),
             )
             (result.drawable as? BitmapDrawable)?.bitmap
         } catch (e: Exception) {
@@ -88,7 +88,7 @@ class ReminderWorker(
             context,
             0,
             launchIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
     }
 
@@ -111,7 +111,7 @@ class ReminderWorker(
             KEY_ID, KEY_TITLE, KEY_MESSAGE, KEY_SMALL_ICON,
             KEY_LARGE_ICON, KEY_BIG_IMAGE, KEY_CHANNEL_ID,
             KEY_CHANNEL_NAME, KEY_COLOR, KEY_SOUND_URI,
-            KEY_VISIBILITY, KEY_CATEGORY, KEY_TIMESTAMP
+            KEY_VISIBILITY, KEY_CATEGORY, KEY_TIMESTAMP,
         )
     }
 }

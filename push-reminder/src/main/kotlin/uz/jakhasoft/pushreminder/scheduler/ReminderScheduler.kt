@@ -2,7 +2,11 @@ package uz.jakhasoft.pushreminder.scheduler
 
 import android.app.NotificationManager
 import android.content.Context
-import androidx.work.*
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 
 object ReminderScheduler {
 
@@ -16,7 +20,7 @@ object ReminderScheduler {
                 workManager.enqueueUniquePeriodicWork(
                     id,
                     ExistingPeriodicWorkPolicy.KEEP,
-                    request
+                    request,
                 )
             }
 
@@ -24,7 +28,7 @@ object ReminderScheduler {
                 workManager.enqueueUniqueWork(
                     id,
                     ExistingWorkPolicy.KEEP,
-                    request
+                    request,
                 )
             }
 

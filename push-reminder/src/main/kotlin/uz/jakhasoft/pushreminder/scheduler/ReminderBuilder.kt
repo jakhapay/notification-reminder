@@ -18,12 +18,12 @@ class ReminderBuilder {
     private var delay: Long? = null
     private var delayUnit: TimeUnit? = null
     private var smallIcon: Int? = null
-    private var channelId: String? = null
-    private var channelName: String? = null
 
     // Optional
     private var largeIcon: String? = null
     private var bigImage: String? = null
+    private var channelId: String? = null
+    private var channelName: String? = null
     private var color: Int? = null
     private var soundUri: Uri? = null
     private var visibility: Int? = null
@@ -37,7 +37,10 @@ class ReminderBuilder {
     fun setId(id: String) = apply { this.uniqueId = id }
     fun setTitle(value: String) = apply { title = value }
     fun setMessage(value: String) = apply { message = value }
-    fun setDelay(value: Long, unit: TimeUnit) = apply { delay = value; delayUnit = unit }
+    fun setDelay(value: Long, unit: TimeUnit) = apply {
+        delay = value
+        delayUnit = unit
+    }
     fun setSmallIcon(iconRes: Int) = apply { smallIcon = iconRes }
 
     fun setLargeIconUrl(url: String) = apply { largeIcon = url }
@@ -49,17 +52,19 @@ class ReminderBuilder {
     fun setVisibility(value: Int) = apply { visibility = value }
     fun setCategory(value: String) = apply { category = value }
     fun setTimestamp(value: Long) = apply { timestamp = value }
-    fun setCustomData(map: MutableMap<String, String>) = apply { customData.putAll(map) }
-    fun setRepeatInterval(value: Long, unit: TimeUnit) = apply { repeatInterval = value; repeatUnit = unit }
+    fun setCustomData(data: Pair<String, String>) = apply { customData.plus(data) }
+    fun setRepeatInterval(value: Long, unit: TimeUnit) = apply {
+        repeatInterval = value
+        repeatUnit = unit
+    }
 
     fun build(): Pair<String, WorkRequest> {
-        require(true)
-        val id = uniqueId ?: throw IllegalStateException("Reminder ID is required")
-        val finalTitle = title ?: throw IllegalStateException("Title is required.")
-        val finalMessage = message ?: throw IllegalStateException("Message is required.")
-        val finalDelay = delay ?: throw IllegalStateException("Delay is required.")
-        val finalDelayUnit = delayUnit ?: throw IllegalStateException("Delay unit is required.")
-        val finalSmallIcon = smallIcon ?: throw IllegalStateException("Small icon is required.")
+        val id = requireNotNull(uniqueId)
+        val finalTitle = requireNotNull(title)
+        val finalMessage = requireNotNull(message)
+        val finalDelay = requireNotNull(delay)
+        val finalDelayUnit = requireNotNull(delayUnit)
+        val finalSmallIcon = requireNotNull(smallIcon)
 
         val dataBuilder = Data.Builder()
             .putString(ReminderWorker.KEY_ID, id)
@@ -78,13 +83,14 @@ class ReminderBuilder {
             dataBuilder.putString(key, value)
         }
 
-
-
         soundUri?.let { dataBuilder.putString(ReminderWorker.KEY_SOUND_URI, it.toString()) }
         color?.let { dataBuilder.putInt(ReminderWorker.KEY_COLOR, it) }
 
         val request = if (repeatInterval != null && repeatUnit != null) {
-            PeriodicWorkRequestBuilder<ReminderWorker>(repeatInterval!!, repeatUnit!!)
+            PeriodicWorkRequestBuilder<ReminderWorker>(
+                repeatInterval ?: 0,
+                repeatUnit ?: TimeUnit.NANOSECONDS,
+            )
                 .setInitialDelay(finalDelay, finalDelayUnit)
                 .setInputData(dataBuilder.build())
                 .build()
@@ -97,5 +103,4 @@ class ReminderBuilder {
 
         return id to request
     }
-
 }

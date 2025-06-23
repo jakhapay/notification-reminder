@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings.System.DEFAULT_NOTIFICATION_URI
 import androidx.core.app.NotificationCompat
 
 class NotificationHelper(private val context: Context) {
@@ -26,10 +27,11 @@ class NotificationHelper(private val context: Context) {
         category: String?,
         timestamp: Long,
         soundUri: Uri?,
-        pendingIntent: PendingIntent
+        pendingIntent: PendingIntent,
     ) {
         val finalChannelId = channelId ?: "${context.applicationContext.packageName}.default_channel"
-        val finalChannelName = channelName ?: "${context.applicationContext.packageName} Reminders"
+        val finalChannelName = channelName ?: "${context.applicationContext.applicationContext} Reminders"
+        val finalSoundUri = soundUri ?: DEFAULT_NOTIFICATION_URI
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -37,12 +39,14 @@ class NotificationHelper(private val context: Context) {
             val channel = NotificationChannel(
                 finalChannelId,
                 finalChannelName,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_DEFAULT,
             ).apply {
                 enableLights(true)
                 lightColor = Color.BLUE
-                setSound(soundUri, null)
-                description = "Scheduled reminders"
+                setSound(finalSoundUri, null)
+                description = "Notifications Reminder"
+                enableVibration(true)
+                vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
             }
             manager.createNotificationChannel(channel)
         }
@@ -64,7 +68,7 @@ class NotificationHelper(private val context: Context) {
         if (bigImage != null) {
             builder.setStyle(
                 NotificationCompat.BigPictureStyle()
-                    .bigPicture(bigImage)
+                    .bigPicture(bigImage),
             )
         } else {
             builder.setStyle(NotificationCompat.BigTextStyle().bigText(message))
@@ -72,5 +76,4 @@ class NotificationHelper(private val context: Context) {
 
         manager.notify(id.hashCode(), builder.build())
     }
-
 }
